@@ -10,7 +10,7 @@ const router = createBrowserRouter(
   createRoutesFromElements([
     <Route key="app" path="/" element={<App />} >
       <Route key="home" path="" element={<Home />} />
-      <Route key="login" path="login" element={<LoginPage/>} />
+      {/* <Route key="login" path="login" element={<LoginPage/>} /> */}
       <Route key="otp-verify" path="otp-verify" element={<OtpPage />} />
       <Route key="register" path="register" element={<RegisterPage/>} />
     </Route>
