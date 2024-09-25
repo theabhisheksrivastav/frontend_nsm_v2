@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
-import { authService } from '../../services/authService'; 
+import { login as authLogin } from '../../store/authSlice';
+import { useDispatch } from 'react-redux';
+import { login as loginService } from '../../store/authSlice';
 
-const LoginForm = () => {
+const LoginForm = ({ handleSubmit }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     username: '', 
     email: '', 
     password: ''
   });
   const [error, setError] = useState('');
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
 
+
+  const onSubmit = async (formData) => {
     try {
-      const user = await authService.login(formData.username, formData.email, formData.password);
-      console.log('User logged in:', user);
+      const userData = await loginService(formData.username, formData.email, formData.password);
+      dispatch(authLogin({ userData }));
       navigate('/otp-verify');
     } catch (error) {
-      console.error('Login failed:', error);
-      setError('Login failed. Please check your email or password.');
+      console.error("Login failed", error.message);
     }
   };
 

@@ -4,7 +4,7 @@ import SignUpCard from '../components/SignUpCard';
 import Logo from '../assets/nsm-logo-border.png';
 
 
-const OtpPage = () => {
+const OTPPage = () => {
   const handleOtpSubmit = (otpCode) => {
     console.log('Submitted OTP:', otpCode);
   };
@@ -26,4 +26,4 @@ const OtpPage = () => {
   );
 };
 
-export default OtpPage;
+export default OTPPage;
