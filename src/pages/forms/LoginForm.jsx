@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
 import { login as authLogin } from '../../store/authSlice';
 import { useDispatch } from 'react-redux';
-import { login as loginService } from '../../store/authSlice';
+import { login as loginService } from '../../services/authService';
 
 const LoginForm = ({ handleSubmit }) => {
   const dispatch = useDispatch();
@@ -20,15 +20,17 @@ const LoginForm = ({ handleSubmit }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
-
-  const onSubmit = async (formData) => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
     try {
       const userData = await loginService(formData.username, formData.email, formData.password);
       dispatch(authLogin({ userData }));
-      navigate('/otp-verify');
+      console.log('Login successful:', userData);
+      if (userData) {
+        navigate('/otp-verify', { state: { email: formData.email } });
+      }
     } catch (error) {
-      console.error("Login failed", error.message);
+      console.error('Login failed:', error);
     }
   };
 

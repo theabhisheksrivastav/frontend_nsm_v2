@@ -3,6 +3,7 @@ import CustomButton from '../../components/CustomButton';
 
 const OTPForm = ({ email, onSubmit }) => {
   const [otp, setOtp] = useState(new Array(6).fill(''));
+  
 
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return;
@@ -18,8 +19,7 @@ const OTPForm = ({ email, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const otpCode = otp.join('');
-    onSubmit(otpCode);
-    console.log('OTP:', otpCode);
+    onSubmit(otpCode, email);
   };
 
   return (

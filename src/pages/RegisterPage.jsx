@@ -3,10 +3,13 @@ import RegisterForm from './forms/RegisterForm';
 import SignUpCard from '../components/SignUpCard';
 import Logo from '../assets/nsm-logo-border.png';
 import AuthLayout from '../layout/AuthLayout';
+import { register } from '../services/authService';
 
 const RegisterPage = () => {
 
-  const handleSubmit = (formData) => {
+  const handleSubmit = async (formData) => {
+    const user = await register(formData.username, formData.name, formData.email, formData.password);
+    console.log('User registered:', user);
     console.log('Form data submitted:', formData);
   };
 

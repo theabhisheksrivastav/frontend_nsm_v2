@@ -69,13 +69,13 @@ export const logout = async () => {
 };
 
 
-export const register = async (email, password) => {
-    const response = await fetch(`${conf.backendUrl}/register`, {
+export const register = async (username, fullname, email, password) => {
+    const response = await fetch(`${conf.backendUrl}/users/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({username, fullname, email, password }),
     });
 
     if (response.ok) {
