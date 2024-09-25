@@ -1,4 +1,3 @@
-import React from 'react';
 import LoginForm from './forms/LoginForm';
 import SignUpCard from '../components/SignUpCard';
 import Logo from '../assets/nsm-logo-border.png';
