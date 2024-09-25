@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // for navigation after login
+import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
-import { authService } from '../../services/authService'; // import your authService
+import { authService } from '../../services/authService'; 
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -9,8 +9,8 @@ const LoginForm = () => {
     email: '', 
     password: ''
   });
-  const [error, setError] = useState(''); // for handling login errors
-  const navigate = useNavigate(); // for navigation
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

@@ -21,13 +21,13 @@ export const getCurrentUser = async () => {
 
 
 
-export const login = async (email, password) => {
-    const response = await fetch(`${conf.backendUrl}/login`, {
+export const login = async (username, email, password) => {
+    const response = await fetch(`${conf.backendUrl}/users/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({username, email, password }),
     });
 
     if (response.ok) {
