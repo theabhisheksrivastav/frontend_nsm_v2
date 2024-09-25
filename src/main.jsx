@@ -5,7 +5,7 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
-import {Home, LoginPage, RegisterPage, OtpPage} from './pages'
+import {Home, RegisterPage, OtpPage} from './pages'
 const router = createBrowserRouter(
   createRoutesFromElements([
     <Route key="app" path="/" element={<App />} >
