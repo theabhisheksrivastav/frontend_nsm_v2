@@ -5,12 +5,15 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
-import {Home, RegisterPage, OtpPage} from './pages'
+import Home from './pages/Home.jsx'
+import RegisterPage from './pages/RegisterPage.jsx'
+import OtpPage from './pages/OtpPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
 const router = createBrowserRouter(
   createRoutesFromElements([
     <Route key="app" path="/" element={<App />} >
       <Route key="home" path="" element={<Home />} />
-      {/* <Route key="login" path="login" element={<LoginPage/>} /> */}
+      <Route key="login" path="login" element={<LoginPage/>} />
       <Route key="otp-verify" path="otp-verify" element={<OtpPage />} />
       <Route key="register" path="register" element={<RegisterPage/>} />
     </Route>
