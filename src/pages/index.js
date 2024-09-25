@@ -1,11 +1,4 @@
-import Home from "./Home";
-import RegisterPage from "./RegisterPage";
-import OTPPage from "./OTPPage";
-import LoginPage from "./LoginPage";
-
-{
-    Home,
-    RegisterPage,
-    OTPPage,
-    LoginPage
-}
+export { default as Home } from "./Home";
+export { default as RegisterPage } from "./RegisterPage";
+export { default as OTPPage } from "./OTPPage";
+export { default as LoginPage } from "./LoginPage";
