@@ -1,6 +1,6 @@
-import LoginPage from "./LoginPage";
-import RegisterPage from "./RegisterPage";
-import OtpPage from "./OTPPage";
+import LoginPage from "./LoginPage.jsx";
+import RegisterPage from "./RegisterPage.jsx";
+import OtpPage from "./OTPPage.jsx";
 
 
 export {

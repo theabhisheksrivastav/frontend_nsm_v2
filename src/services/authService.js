@@ -22,6 +22,11 @@ export const getCurrentUser = async () => {
 
 
 export const login = async (username, email, password) => {
+    console.log({
+        username,
+        email,
+        password
+    })
     const response = await fetch(`${conf.backendUrl}/users/login`, {
         method: "POST",
         headers: {

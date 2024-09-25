@@ -20,13 +20,11 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      // Call the login function from authService with email and password
-      const user = await authService.login(formData.email, formData.password);
-
-      // If login is successful, redirect to the OTP verification page
+      const user = await authService.login(formData.username, formData.email, formData.password);
+      console.log('User logged in:', user);
       navigate('/otp-verify');
     } catch (error) {
-      // Handle any login errors
+      console.error('Login failed:', error);
       setError('Login failed. Please check your email or password.');
     }
   };
