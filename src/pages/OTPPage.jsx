@@ -1,7 +1,7 @@
 import OTPForm from './forms/OTPForm';
 import AuthLayout from '../layout/AuthLayout';
 import SignUpCard from '../components/SignUpCard';
-import Logo from '../assets/nsm-logo-border.png';
+import Logo from '../assets/nsm-logo-blue.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 

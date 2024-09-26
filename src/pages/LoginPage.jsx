@@ -1,6 +1,6 @@
 import LoginForm from './forms/LoginForm';
 import SignUpCard from '../components/SignUpCard';
-import Logo from '../assets/nsm-logo-border.png';
+import Logo from '../assets/nsm-logo-blue.png';
 import AuthLayout from '../layout/AuthLayout';
 
 const LoginPage = () => {

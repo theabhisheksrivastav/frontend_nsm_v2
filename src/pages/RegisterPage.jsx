@@ -1,7 +1,7 @@
 import React from 'react';
 import RegisterForm from './forms/RegisterForm';
 import SignUpCard from '../components/SignUpCard';
-import Logo from '../assets/nsm-logo-border.png';
+import Logo from '../assets/nsm-logo-blue.png';
 import AuthLayout from '../layout/AuthLayout';
 import { register } from '../services/authService';
 
