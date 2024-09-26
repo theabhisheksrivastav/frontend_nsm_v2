@@ -34,6 +34,7 @@ export const login = async (username, email, password) => {
         },
         body: JSON.stringify({username, email, password }),
     });
+    console.log(response)
 
     if (response.ok) {
         const user = await response.json();
@@ -70,6 +71,12 @@ export const logout = async () => {
 
 
 export const register = async (username, fullname, email, password) => {
+    console.log({
+        username,
+        fullname,
+        email,
+        password
+    })
     const response = await fetch(`${conf.backendUrl}/users/register`, {
         method: "POST",
         headers: {
