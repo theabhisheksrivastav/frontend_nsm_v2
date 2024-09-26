@@ -12,6 +12,9 @@ export default {
       borderRadius: {
         '3xl': '30px',
       },
+      fontFamily: {
+        'gothic': ['Century Gothic', 'sans-serif'],
+      },
     },
   },
   plugins: [],
