@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import CustomButton from '../../components/CustomButton';
+import axios from 'axios'
+import { login as authLogin } from '../../store/authSlice';
+import { useDispatch } from 'react-redux';
+import { login as loginService } from '../../services/authService';
 
 const RegisterForm = ({ handleSubmit }) => {
   const [formData, setFormData] = useState({
@@ -11,8 +15,11 @@ const RegisterForm = ({ handleSubmit }) => {
   });
   const [error, setError] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    
+
+    
   };
 
   const validateEmail = (email) => {
@@ -21,6 +28,8 @@ const RegisterForm = ({ handleSubmit }) => {
     return validDomains.includes(emailDomain);
   };
 
+ 
+
   const onSubmit = (e) => {
     e.preventDefault();
     
@@ -28,8 +37,7 @@ const RegisterForm = ({ handleSubmit }) => {
       setError('Email must be from Gmail, Yahoo, Outlook, or Rediff');
       return;
     }
-
-    if (formData.password !== formData.confirmPassword) {
+   if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
     }

@@ -4,13 +4,34 @@ import SignUpCard from '../components/SignUpCard';
 import Logo from '../assets/nsm-logo-blue.png';
 import AuthLayout from '../layout/AuthLayout';
 import { register } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast'
 
 const RegisterPage = () => {
 
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
   const handleSubmit = async (formData) => {
     const user = await register(formData.username, formData.name, formData.email, formData.password);
     console.log('User registered:', user);
     console.log('Form data submitted:', formData);
+   
+    if (user.sucess) {
+        
+       toast.success('OTP sent succesfully')
+        
+        navigate('/otp-verify', { state: { email: formData.email , name:formData.name,username:formData.username,password:formData.password} });
+      
+
+    }else{
+      toast.error('User All Ready exist')
+    }
+   
+   
+    
+
   };
 
   return (

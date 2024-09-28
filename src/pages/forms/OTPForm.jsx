@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CustomButton from '../../components/CustomButton';
 
-const OTPForm = ({ email, onSubmit }) => {
+const OTPForm = ({ email, handleOtpSubmit }) => {
   const [otp, setOtp] = useState(new Array(6).fill(''));
   
 
@@ -19,7 +19,7 @@ const OTPForm = ({ email, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const otpCode = otp.join('');
-    onSubmit(otpCode, email);
+    handleOtpSubmit(otpCode, email);
   };
 
   return (

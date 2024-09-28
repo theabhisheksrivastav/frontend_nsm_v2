@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { Provider } from 'react-redux'
+import { Toaster } from 'react-hot-toast'
 import store from './store/store.js'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import {
@@ -15,7 +16,7 @@ import {
 const router = createBrowserRouter(
   createRoutesFromElements([
     <Route key="app" path="/" element={<App />} >
-      <Route key="home" path="" element={<Home />} />
+      <Route key="home" path="/" element={<Home />} />
       <Route key="login" path="login" element={<LoginPage/>} />
       <Route key="otp-verify" path="otp-verify" element={<OTPPage />} />
       <Route key="register" path="register" element={<RegisterPage/>} />

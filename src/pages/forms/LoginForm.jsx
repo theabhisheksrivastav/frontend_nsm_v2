@@ -4,6 +4,7 @@ import CustomButton from '../../components/CustomButton';
 import { login as authLogin } from '../../store/authSlice';
 import { useDispatch } from 'react-redux';
 import { login as loginService } from '../../services/authService';
+import toast from 'react-hot-toast'
 
 const LoginForm = ({ handleSubmit }) => {
   const dispatch = useDispatch();
@@ -27,10 +28,12 @@ const LoginForm = ({ handleSubmit }) => {
       dispatch(authLogin({ userData }));
       console.log('Login successful:', userData);
       if (userData) {
-        navigate('/otp-verify', { state: { email: formData.email } });
+        toast.success('user Loged in successful ')
+        navigate('/', { state: { email: formData.email } });
       }
     } catch (error) {
       console.error('Login failed:', error);
+      toast.error('Login fail')
     }
   };
 
