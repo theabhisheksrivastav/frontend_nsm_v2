@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { login, logout} from "./store/authSlice"
 import {getCurrentUser} from './services/authService'
 import { Outlet } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
 
   return !loading ?  (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <Toaster position="top-center" reverseOrder={false}/>
       {/* header & footer components */}
       <Outlet />
     </div>

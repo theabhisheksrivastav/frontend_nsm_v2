@@ -3,28 +3,45 @@ import AuthLayout from '../layout/AuthLayout';
 import SignUpCard from '../components/SignUpCard';
 import Logo from '../assets/nsm-logo-blue.png';
 import { useLocation, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 
 const OTPPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const email = location.state?.email;
-  const handleOtpSubmit = async (otpCode) => {
+  const name = location.state?.name
+  const username = location.state?.username
+  const password = location.state?.password
+
+  console.log(username,password,name);
+  
+  const handleOtpSubmit = async (otpCode,email) => {
+    console.log(otpCode);
+
+   
+    
+    
     try {
-      const response = await fetch('/api/verify-otp', {
+      const response = await fetch('http://localhost:8000/api/v1/users/api/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, otp: otpCode }),
+        body: JSON.stringify({ email, otp: otpCode ,username,password,fullname:name}),
       });
+
+      console.log(response.ok);
+      
 
       if (response.ok) {
         const data = await response.json();
         console.log('OTP verified:', data);
-        navigate('/home');
+        toast.success('OTP verified')
+        navigate('/login');
       } else {
         console.error('OTP verification failed');
+        toast.error('OTP verification failed')
       }
     } catch (error) {
       console.error('Error verifying OTP:', error);
@@ -39,7 +56,7 @@ const OTPPage = () => {
         </div>
 
         <h2 className="text-center text-2xl font-bold mb-6">Login Verification</h2>
-        <OTPForm handleSubmit={handleOtpSubmit} email={email} />
+        <OTPForm handleOtpSubmit={handleOtpSubmit} email={email} />
         <p className="mt-6 text-sm text-center text-gray-500">
           Powered by North Star Metrics
         </p>
