@@ -95,9 +95,34 @@ export const register = async (username, fullname, email, password) => {
     }
 };
 
+export const varifyOTP = async (username, fullname, email, password,otp)=>{
+
+    const response = await fetch(`${conf.backendUrl}/users/api/verify-otp`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, otp ,username,password,fullname}),
+      });
+
+      console.log(response);
+      if (response.ok) {
+        const user = await response.json();
+        setUser(user); 
+        return response;
+    } else {
+        const error = await response.json();
+        throw new Error(error.message || "Registration failed");
+    }
+      
+
+
+}
+
 export const authService = {
     getCurrentUser,
     login,
     logout,
     register,
+    varifyOTP
 };
