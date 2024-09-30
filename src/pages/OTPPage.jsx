@@ -4,6 +4,7 @@ import SignUpCard from '../components/SignUpCard';
 import Logo from '../assets/nsm-logo-blue.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import conf from '../../config/conf.js'
 
 
 const OTPPage = () => {
@@ -23,7 +24,7 @@ const OTPPage = () => {
     
     
     try {
-      const response = await fetch('http://localhost:8000/api/v1/users/api/verify-otp', {
+      const response = await fetch(`${conf.backendUrl}/users/api/verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
