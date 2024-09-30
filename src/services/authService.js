@@ -49,7 +49,8 @@ export const login = async (username, email, password) => {
 export const logout = async () => {
     const token = getToken();
     if (!token) {
-        throw new Error("No user is currently logged in");
+        clearUser();
+        return ("No user is currently logged in");
     }
 
     const response = await fetch(`${conf.backendUrl}/logout`, {
