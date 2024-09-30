@@ -18,52 +18,19 @@ const OTPPage = () => {
   const username = location.state?.username
   const password = location.state?.password
 
-  console.log(username,password,name);
-  
-  const handleOtpSubmit = async (otp,email) => {
-    console.log(otp);
-
-   
-    
-    
+  const handleOtpSubmit = async (otp, email) => {
     try {
-
-
-
-      const response = await verifyOTP(username, name, email, password, otp)
-      console.log(response);
+      const response = await verifyOTP(username, name, email, password, otp);
       if (response.ok) {
-       
-        toast.success('OTP verified')
+        toast.success('OTP verified');
         navigate('/login');
       } else {
         console.error('OTP verification failed');
-        toast.error('OTP verification failed')
+        toast.error('OTP verification failed');
       }
-      
-
-      // const response = await fetch('http://localhost:8000/api/v1/users/api/verify-otp', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ email, otp: otpCode ,username,password,fullname:name}),
-      // });
-
-      // console.log(response.ok);
-      
-
-      // if (response.ok) {
-      //   const data = await response.json();
-      //   console.log('OTP verified:', data);
-      //   toast.success('OTP verified')
-      //   navigate('/login');
-      // } else {
-      //   console.error('OTP verification failed');
-      //   toast.error('OTP verification failed')
-      // }
     } catch (error) {
       console.error('Error verifying OTP:', error);
+      toast.error('Error verifying OTP');
     }
   };
 

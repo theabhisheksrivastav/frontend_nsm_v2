@@ -5,9 +5,6 @@ import AuthLayout from '../layout/AuthLayout';
 
 const LoginPage = () => {
 
-  const handleSubmit = (formData) => {
-    console.log('Form data submitted:', formData);
-  };
 
   return (
     <AuthLayout>
@@ -17,7 +14,7 @@ const LoginPage = () => {
         </div>
 
         <h2 className="text-center text-2xl font-bold mb-6">Login</h2>
-        <LoginForm handleSubmit={handleSubmit} />
+        <LoginForm />
 
         <p className="mt-4 text-sm text-center">
           Create an Account? <a href="/register" className="text-blue-primary">Register here</a>

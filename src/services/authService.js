@@ -95,7 +95,7 @@ export const register = async (username, fullname, email, password) => {
     }
 };
 
-export const verifyOTP = async (username, fullname, email, password,otp)=>{
+export const verifyOTP = async (username, fullname, email, password, otp)=>{
 
     const response = await fetch(`${conf.backendUrl}/users/verify`, {
         method: 'POST',

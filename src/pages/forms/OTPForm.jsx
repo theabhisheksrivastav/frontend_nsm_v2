@@ -16,7 +16,7 @@ const OTPForm = ({ email, handleOtpSubmit }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const otpCode = otp.join('');
     handleOtpSubmit(otpCode, email);
@@ -28,7 +28,7 @@ const OTPForm = ({ email, handleOtpSubmit }) => {
           We've sent you a six-digit code. Check your email <strong>{email}</strong> for the OTP. It could also be in your spam folder.
         </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col items-center">
+        <form onSubmit={onSubmit} className="flex flex-col items-center">
           <div className="grid grid-cols-6 gap-2 mb-6">
             {otp.map((value, index) => (
               <input
