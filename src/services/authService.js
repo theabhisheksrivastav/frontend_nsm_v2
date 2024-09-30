@@ -95,14 +95,14 @@ export const register = async (username, fullname, email, password) => {
     }
 };
 
-export const varifyOTP = async (username, fullname, email, password,otp)=>{
+export const verifyOTP = async (username, fullname, email, password,otp)=>{
 
-    const response = await fetch(`${conf.backendUrl}/users/api/verify-otp`, {
+    const response = await fetch(`${conf.backendUrl}/users/verify`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, otp ,username,password,fullname}),
+        body: JSON.stringify({ email, otp, username, password, fullname}),
       });
 
       console.log(response);
@@ -124,5 +124,5 @@ export const authService = {
     login,
     logout,
     register,
-    varifyOTP
+    verifyOTP
 };

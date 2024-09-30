@@ -5,7 +5,7 @@ import Logo from '../assets/nsm-logo-blue.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-import { varifyOTP } from '../services/authService';
+import { verifyOTP } from '../services/authService';
 
 
 
@@ -30,7 +30,7 @@ const OTPPage = () => {
 
 
 
-      const response = await varifyOTP(username,name, email ,password,otp)
+      const response = await verifyOTP(username, name, email, password, otp)
       console.log(response);
       if (response.ok) {
        
