@@ -4,7 +4,9 @@ import SignUpCard from '../components/SignUpCard';
 import Logo from '../assets/nsm-logo-blue.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+
 import { varifyOTP } from '../services/authService';
+
 
 
 
@@ -25,6 +27,8 @@ const OTPPage = () => {
     
     
     try {
+
+
 
       const response = await varifyOTP(username,name, email ,password,otp)
       console.log(response);
