@@ -4,7 +4,10 @@ import SignUpCard from '../components/SignUpCard';
 import Logo from '../assets/nsm-logo-blue.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import conf from '../../config/conf.js'
+
+import { varifyOTP } from '../services/authService';
+
+
 
 
 const OTPPage = () => {
@@ -17,33 +20,48 @@ const OTPPage = () => {
 
   console.log(username,password,name);
   
-  const handleOtpSubmit = async (otpCode,email) => {
-    console.log(otpCode);
+  const handleOtpSubmit = async (otp,email) => {
+    console.log(otp);
 
    
     
     
     try {
-      const response = await fetch(`${conf.backendUrl}/users/api/verify-otp`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, otp: otpCode ,username,password,fullname:name}),
-      });
 
-      console.log(response.ok);
-      
 
+
+      const response = await varifyOTP(username,name, email ,password,otp)
+      console.log(response);
       if (response.ok) {
-        const data = await response.json();
-        console.log('OTP verified:', data);
+       
         toast.success('OTP verified')
         navigate('/login');
       } else {
         console.error('OTP verification failed');
         toast.error('OTP verification failed')
       }
+      
+
+      // const response = await fetch('http://localhost:8000/api/v1/users/api/verify-otp', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ email, otp: otpCode ,username,password,fullname:name}),
+      // });
+
+      // console.log(response.ok);
+      
+
+      // if (response.ok) {
+      //   const data = await response.json();
+      //   console.log('OTP verified:', data);
+      //   toast.success('OTP verified')
+      //   navigate('/login');
+      // } else {
+      //   console.error('OTP verification failed');
+      //   toast.error('OTP verification failed')
+      // }
     } catch (error) {
       console.error('Error verifying OTP:', error);
     }
