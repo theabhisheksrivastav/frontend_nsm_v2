@@ -18,7 +18,7 @@ const RegisterPage = () => {
     console.log('User registered:', user);
     console.log('Form data submitted:', formData);
    
-    if (user.sucess) {
+    if (user.success) {
         
        toast.success('OTP sent succesfully')
         
