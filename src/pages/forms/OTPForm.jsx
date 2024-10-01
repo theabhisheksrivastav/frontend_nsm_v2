@@ -44,10 +44,6 @@ const OTPForm = ({ email, handleOtpSubmit }) => {
             ))}
           </div>
 
-          <p className="mb-6 text-sm text-center text-blue-600">
-            I have not received my code
-          </p>
-
           <CustomButton type="submit">Continue</CustomButton>
         </form>
 

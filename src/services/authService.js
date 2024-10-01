@@ -85,7 +85,7 @@ export const register = async (username, fullname, email, password) => {
         },
         body: JSON.stringify({username, fullname, email, password }),
     });
-
+    console.log(response)
     if (response.ok) {
         const user = await response.json();
         setUser(user); 
@@ -97,7 +97,17 @@ export const register = async (username, fullname, email, password) => {
 };
 
 export const verifyOTP = async (username, fullname, email, password, otp)=>{
-
+    const user = JSON.parse(localStorage.getItem("user"));
+    const bodyres =  JSON.stringify({ email, otp, username, password, fullname});
+    console.log(bodyres);
+    console.log({
+        email,
+        otp,
+        username,
+        password,
+        fullname
+    });
+    console.log(user)
     const response = await fetch(`${conf.backendUrl}/users/verify`, {
         method: 'POST',
         headers: {
