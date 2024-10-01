@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
 import { login as authLogin } from '../../store/authSlice';
@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { login as loginService } from '../../services/authService';
 import toast from 'react-hot-toast'
 
-const LoginForm = ({ handleSubmit }) => {
+const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -15,7 +15,7 @@ const LoginForm = ({ handleSubmit }) => {
     email: '', 
     password: ''
   });
-  const [error, setError] = useState('');
+  const error = '';
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

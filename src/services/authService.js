@@ -19,8 +19,6 @@ export const getCurrentUser = async () => {
     return user || null;
 };
 
-
-
 export const login = async (username, email, password) => {
     console.log({
         username,
@@ -70,14 +68,7 @@ export const logout = async () => {
     }
 };
 
-
 export const register = async (username, fullname, email, password) => {
-    console.log({
-        username,
-        fullname,
-        email,
-        password
-    })
     const response = await fetch(`${conf.backendUrl}/users/register`, {
         method: "POST",
         headers: {
@@ -97,17 +88,6 @@ export const register = async (username, fullname, email, password) => {
 };
 
 export const verifyOTP = async (username, fullname, email, password, otp)=>{
-    const user = JSON.parse(localStorage.getItem("user"));
-    const bodyres =  JSON.stringify({ email, otp, username, password, fullname});
-    console.log(bodyres);
-    console.log({
-        email,
-        otp,
-        username,
-        password,
-        fullname
-    });
-    console.log(user)
     const response = await fetch(`${conf.backendUrl}/users/verify`, {
         method: 'POST',
         headers: {
@@ -125,9 +105,6 @@ export const verifyOTP = async (username, fullname, email, password, otp)=>{
         const error = await response.json();
         throw new Error(error.message || "Registration failed");
     }
-      
-
-
 }
 
 export const authService = {

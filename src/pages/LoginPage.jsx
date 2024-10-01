@@ -5,7 +5,6 @@ import AuthLayout from '../layout/AuthLayout';
 
 const LoginPage = () => {
 
-
   return (
     <AuthLayout>
       <SignUpCard>

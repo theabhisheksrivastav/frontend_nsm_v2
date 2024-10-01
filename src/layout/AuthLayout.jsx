@@ -1,4 +1,4 @@
-import React from 'react';
+//this is the layout provided for the background image of the login and register pages
 import backgroundImg from '../assets/form_background.png';
 
 const AuthLayout = ({ children }) => {

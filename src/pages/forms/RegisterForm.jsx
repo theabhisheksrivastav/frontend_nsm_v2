@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CustomButton from '../../components/CustomButton';
-import axios from 'axios'
-import { login as authLogin } from '../../store/authSlice';
+import { register } from '../../services/authService';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login as loginService } from '../../services/authService';
+import toast from 'react-hot-toast'
 
-const RegisterForm = ({ handleSubmit }) => {
+const RegisterForm = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    username: '', 
+    username: '',
     name: '',
-    email: '', 
-    password: '', 
-    confirmPassword: '' 
+    email: '',
+    password: '',
+    confirmPassword: ''
   });
   const [error, setError] = useState('');
 
   const handleChange = async (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    
 
-    
+
+
   };
 
   const validateEmail = (email) => {
@@ -27,17 +28,25 @@ const RegisterForm = ({ handleSubmit }) => {
     const emailDomain = email.split('@')[1];
     return validDomains.includes(emailDomain);
   };
-
- 
-
+  const handleSubmit = async (formData) => {
+    const user = await register(formData.username, formData.name, formData.email, formData.password);
+    console.log('User registered:', user);
+    console.log('Form data submitted:', formData);
+    if (user.success) {
+      toast.success('OTP sent succesfully')
+      navigate('/otp-verify', { state: { email: formData.email, name: formData.name, username: formData.username, password: formData.password } });
+    } else {
+      toast.error('User All Ready exist')
+    }
+  };
   const onSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!validateEmail(formData.email)) {
       setError('Email must be from Gmail, Yahoo, Outlook, or Rediff');
       return;
     }
-   if (formData.password !== formData.confirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
     }
@@ -47,7 +56,7 @@ const RegisterForm = ({ handleSubmit }) => {
   };
 
   return (
-    
+
     <form onSubmit={onSubmit}>
       <div className="mb-4">
         <label className="block mb-2 text-sm" htmlFor="username">Username:</label>
@@ -126,10 +135,10 @@ const RegisterForm = ({ handleSubmit }) => {
 
       <CustomButton type="submit">Register</CustomButton>
 
-      
+
     </form>
 
-    
+
   );
 };
 

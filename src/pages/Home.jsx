@@ -13,16 +13,16 @@ const Home = () => {
       .then((userData) => {
         if (userData) {
           dispatch(loginAction({ userData }));
-          setButton('logout'); // Set button to logout if user is logged in
+          setButton('logout');
         } else {
           dispatch(logoutAction());
-          setButton('login'); // Set button to login if no user is logged in
+          setButton('login');
         }
       })
       .catch(() => {
-        setButton('login'); // Handle case when getting current user fails
+        setButton('login');
       });
-  }, [dispatch]);
+  }, [dispatch]);// changes login/logout button based on user status
 
   const handleButtonClick = async () => {
     if (button === 'logout') {
@@ -44,7 +44,7 @@ const Home = () => {
     } else {
       window.location.href = '/login';
     }
-  };
+  };// logs user out if logged in, otherwise redirects to login page
 
   return (
     <div className="flex items-center justify-center h-screen">
