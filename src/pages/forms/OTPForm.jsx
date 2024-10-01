@@ -21,31 +21,22 @@ const OTPForm = () => {
         toast.success('OTP verified');
         navigate('/login');
       } else {
-        console.error('OTP verification failed');
         toast.error('OTP verification failed');
       }
     } catch (error) {
-      console.error('Error verifying OTP:', error);
       toast.error('Error verifying OTP');
     }
   };
 
   const handleResendOtp = async () => {
     try {
-      console.log('Username:', username);
-      console.log('Fullname:', name);
-      console.log('Email:', email);
-      console.log('Password:', password);
       const response = await register(username, name, email, password);
-      console.log('Response:', response);
       if (response.success) {
         toast.success('OTP sent successfully');
       } else {
-        console.error('Failed to resend OTP');
         toast.error('Failed to resend OTP');
       }
     } catch (error) {
-      console.error('Error resending OTP:', error);
       toast.error('Error resending OTP');
     }
   };

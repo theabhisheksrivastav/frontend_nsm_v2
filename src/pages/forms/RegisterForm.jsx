@@ -30,8 +30,6 @@ const RegisterForm = () => {
   };
   const handleSubmit = async (formData) => {
     const user = await register(formData.username, formData.name, formData.email, formData.password);
-    console.log('User registered:', user);
-    console.log('Form data submitted:', formData);
     if (user.success) {
       toast.success('OTP sent succesfully')
       navigate('/otp-verify', { state: { email: formData.email, name: formData.name, username: formData.username, password: formData.password } });

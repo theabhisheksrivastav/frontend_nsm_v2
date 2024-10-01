@@ -26,13 +26,11 @@ const LoginForm = () => {
     try {
       const userData = await loginService(formData.username, formData.email, formData.password);
       dispatch(authLogin({ userData }));
-      console.log('Login successful:', userData);
       if (userData) {
         toast.success('user Loged in successful ')
         navigate('/', { state: { email: formData.email } });
       }
     } catch (error) {
-      console.error('Login failed:', error);
       toast.error('Login fail')
     }
   };

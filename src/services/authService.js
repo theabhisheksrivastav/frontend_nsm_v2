@@ -20,11 +20,6 @@ export const getCurrentUser = async () => {
 };
 
 export const login = async (username, email, password) => {
-    console.log({
-        username,
-        email,
-        password
-    })
     const response = await fetch(`${conf.backendUrl}/users/login`, {
         method: "POST",
         headers: {
@@ -32,7 +27,6 @@ export const login = async (username, email, password) => {
         },
         body: JSON.stringify({username, email, password }),
     });
-    console.log(response)
 
     if (response.ok) {
         const user = await response.json();
@@ -76,7 +70,6 @@ export const register = async (username, fullname, email, password) => {
         },
         body: JSON.stringify({username, fullname, email, password }),
     });
-    console.log(response)
     if (response.ok) {
         const user = await response.json();
         setUser(user); 
@@ -96,7 +89,6 @@ export const verifyOTP = async (username, fullname, email, password, otp)=>{
         body: JSON.stringify({ email, otp, username, password, fullname}),
       });
 
-      console.log(response);
       if (response.ok) {
         const user = await response.json();
         setUser(user); 
