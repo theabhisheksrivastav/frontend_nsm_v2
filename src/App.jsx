@@ -4,6 +4,8 @@ import { login, logout} from "./store/authSlice"
 import {getCurrentUser} from './services/authService'
 import { Outlet } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import Navbar from './layout/Navbar'
+import Footer from './layout/Footer'
 
 function App() {
 
@@ -24,11 +26,14 @@ function App() {
   }, [])
 
   return !loading ?  (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <Toaster position="top-center" reverseOrder={false}/>
-      {/* header & footer components */}
-      <Outlet />
-    </div>
+    <>
+    <Navbar />
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+          <Toaster position="top-center" reverseOrder={false}/>
+        <Outlet />
+      </div>
+    <Footer />
+    </>
   ) : (
     <div>Loading...</div> 
     // loading skeleton component
