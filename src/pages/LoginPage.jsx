@@ -16,7 +16,7 @@ const LoginPage = () => {
         <LoginForm />
 
         <p className="mt-4 text-sm text-center">
-          Create an Account? <a href="/register" className="text-blue-primary">Register here</a>
+          Create an Account? <Link to="/register" className="text-blue-primary">Register here</Link>
         </p>
         <p className="mt-6 text-sm text-center text-gray-500">
           Powered by North Star Metrics
