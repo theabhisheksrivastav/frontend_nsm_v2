@@ -17,7 +17,7 @@ const RegisterPage = () => {
         <RegisterForm />
 
         <p className="mt-4 text-sm text-center">
-          Already have an Account? <a href="/login" className="text-blue-primary">Login here</a>
+          Already have an Account? <Link to="/login" className="text-blue-primary">Login here</Link>
         </p>
         <p className="mt-6 text-sm text-center text-gray-500">
           Powered by North Star Metrics
