@@ -2,6 +2,7 @@ import LoginForm from './forms/LoginForm';
 import SignUpCard from '../components/SignUpCard';
 import Logo from '../assets/nsm-logo-blue.png';
 import AuthLayout from '../layout/AuthLayout';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
 

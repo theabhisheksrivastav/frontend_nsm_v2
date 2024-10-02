@@ -96,7 +96,6 @@ const Navbar = () => {
   }, [isMobileMenuOpen]); // Runs the animation whenever isMobileMenuOpen changes
 
   const navLinks = [
-    { label: 'About', link: '/about' },
     {
       label: 'Service',
       dropdown: [

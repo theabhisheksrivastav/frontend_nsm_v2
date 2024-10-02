@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import { authService } from "../services/authService";
 import { login as loginAction, logout as logoutAction } from '../store/authSlice';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [button, setButton] = useState('login');
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const Home = () => {
       .catch(() => {
         setButton('login');
       });
-  }, [dispatch]);// changes login/logout button based on user status
+  }, [dispatch]);
 
   const handleButtonClick = async () => {
     if (button === 'logout') {
@@ -42,9 +44,9 @@ const Home = () => {
         toast.error('Logout failed: ' + error.message);
       }
     } else {
-      window.location.href = '/login';
+      navigate('/login');
     }
-  };// logs user out if logged in, otherwise redirects to login page
+  };
 
   return (
     <div className="flex items-center justify-center h-screen">
