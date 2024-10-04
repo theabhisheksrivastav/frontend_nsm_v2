@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import CustomButton from '../../components/CustomButton';
+import CustomInput from '../../components/CustomInput';
 import { register } from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast'
 import { Link } from 'react-router-dom';
 
+
 const RegisterForm = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    username: '',
-    name: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    phone: '',
   });
   const [error, setError] = useState('');
 
@@ -57,7 +56,7 @@ const RegisterForm = () => {
   return (
 
     <form onSubmit={onSubmit}>
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label className="block mb-2 text-sm" htmlFor="username">Username:</label>
         <input
           id="username"
@@ -100,7 +99,25 @@ const RegisterForm = () => {
           autoComplete="on"
           required
         />
-      </div>
+      </div> */}
+
+       {/* Email Input */}
+       <CustomInput
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Enter your email"
+      />
+
+      {/* Phone Number Input */}
+      <CustomInput
+        type="number"
+        name="phone"
+        value={formData.phone}
+        onChange={handleChange}
+        placeholder="Enter your phone number"
+      />
 
       <div className="mb-4">
         <label className="block mb-2 text-sm" htmlFor="password">Password:</label>
