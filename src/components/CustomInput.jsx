@@ -17,77 +17,87 @@ const validateEmail = (email) => {
 };
 
 const CustomInput = ({ type, name, value, onChange, placeholder }) => {
-  const [selectedCountry, setSelectedCountry] = useState(countryCodes[0].code);
+  const [selectedCountry] = useState(countryCodes[0].code); // Default country code
   const [verified, setVerified] = useState(false);
   const [otpVisible, setOtpVisible] = useState(false);
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
   const [showVerifyButton, setShowVerifyButton] = useState(false);
-  
+
   const otpInputRef = useRef(null);
 
-  // Handle validation and show "Verify Now" button for email
+  // Input validation logic for both email and phone number
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     onChange(e);
-  
-    // Email validation logic
+
     if (type === 'email' && validateEmail(inputValue)) {
       setShowVerifyButton(true);  // Show verify button for valid email
-    }
-    // Phone number validation logic (10 digits and only 0-9)
-    else if (type === 'number' && /^[0-9]{10}$/.test(inputValue)) {
+    } else if (type === 'number' && /^[0-9]{10}$/.test(inputValue)) {
       setShowVerifyButton(true);  // Show verify button for valid phone number
-    } 
-    // If neither valid, hide the verify button
-    else {
-      setShowVerifyButton(false);
+    } else {
+      setShowVerifyButton(false);  // Hide verify button if not valid
     }
   };
-  
 
-  // Handle validation and show OTP input
-  const handleSubmit = async () => {
+  // Handle verification submission for email/phone number
+  const handleVerification = async () => {
     if (!value) {
       setError('Field cannot be empty');
       return;
     }
 
     const isValid = await fakeApiCallToValidateInput(value);
-
     if (isValid) {
-      setVerified(true); // Input is verified, show OTP input
+      setVerified(true); // Input verified, OTP field visible
       setOtpVisible(true);
       setError('');
     } else {
       setError('Validation failed. Try again.');
-      setOtpVisible(false); // Hide OTP field if failed
+      setOtpVisible(false);
     }
   };
 
   // Handle OTP submission
   const handleOtpSubmit = () => {
-    if (otp !== '') {
+    if (otp.trim()) {
       alert('OTP submitted successfully!');
-      setError(''); // Clear any previous error
+      setError('');
     } else {
       setError('Please enter the OTP.');
     }
   };
 
-  // Fake API validation logic
+  // Simulate API call for validation
   const fakeApiCallToValidateInput = (input) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(input !== '');
-      }, 1000); // Simulate an API response delay
+        resolve(input.trim() !== ''); // Simple fake validation check
+      }, 1000); // Simulate a delay for API response
     });
   };
 
   return (
     <div className="custom-input-container">
+
+        {type === 'number' && (
+        <div className="country-selector mb-4">
+          <select
+            className="border rounded-lg p-2"
+            value={selectedCountry}
+            onChange={(e) => setSelectedCountry(e.target.value)}
+          >
+            {countryCodes.map((country) => (
+              <option key={country.code} value={country.code}>
+                {country.name} {country.code}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       <div className="relative">
-        {/* Input field for email/number */}
+        {/* Input field */}
         <input
           type={type}
           name={name}
@@ -98,10 +108,10 @@ const CustomInput = ({ type, name, value, onChange, placeholder }) => {
           required
         />
 
-        {/* "Verify Now" button (visible after valid email input) */}
+        {/* Show "Verify Now" button if validation passes */}
         {showVerifyButton && !verified && (
           <button
-            onClick={handleSubmit}
+            onClick={handleVerification}
             className="absolute right-2 top-2 bg-blue-primary hover:bg-blue-600 text-white font-semibold py-1 px-2 rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             Verify Now
@@ -109,9 +119,10 @@ const CustomInput = ({ type, name, value, onChange, placeholder }) => {
         )}
       </div>
 
+      {/* Error message */}
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      {/* If OTP is visible, render OTP input next to the main input */}
+      {/* OTP input field */}
       {otpVisible && (
         <div className="relative flex items-center">
           <input
