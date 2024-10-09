@@ -1,6 +1,5 @@
-import React from 'react';
 
-const CryptoCard = ({ cryptoData }) => {
+const CryptoCard = ( {cryptoData} ) => {
   return (
     <main className="flex-grow p-6 w-svw max-w-6xl mx-auto bg-white border border-gray-300 shadow-2xl rounded-lg mt-20">
     <h2 className="text-center font-semibold text-lg mb-6 border-b">CRYPTOCURRENCY TICKERS & PRICES</h2>
@@ -18,12 +17,12 @@ const CryptoCard = ({ cryptoData }) => {
       <tbody>
         {cryptoData.map((crypto, index) => (
           <tr key={index} className="text-sm text-gray-700 border-b">
-            <td className="py-5 px-4">{crypto._id}</td>
+            <td className="py-5 px-4">{crypto.cryptoname.charAt(0)}</td>
             <td className="py-5 px-4">{crypto.cryptoname}</td>
-            <td className="py-5 px-4">{crypto.buyPrice ? crypto.buyPrice.toFixed(2) : 'N/A'}</td>
-            <td className="py-5 px-4">{crypto.sellPrice ? crypto.sellPrice.toFixed(2) : 'N/A'}</td>
-            <td className={`py-5 px-4 ${crypto.change >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-              {crypto.change ? `${crypto.change.toFixed(2)}%` : 'N/A'}
+            <td className="py-5 px-4">{crypto.cryptoprice ? crypto.cryptoprice.toFixed(2) : 'N/A'}</td>
+            <td className="py-5 px-4">{crypto.cryptoprice ? crypto.cryptoprice.toFixed(2) : 'N/A'}</td>
+            <td className={`py-5 px-4 ${crypto.cryptoprice >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+              {crypto.change ? `${crypto.change.toFixed(2)}%` : '0%'}
             </td>
             
           </tr>

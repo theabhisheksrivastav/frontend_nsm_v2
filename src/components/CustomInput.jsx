@@ -6,7 +6,6 @@ const countryCodes = [
   { code: '+91', name: 'India' },
   { code: '+44', name: 'UK' },
   { code: '+61', name: 'Australia' },
-  // Add more countries here as needed
 ];
 
 // Email validation function
@@ -17,7 +16,7 @@ const validateEmail = (email) => {
 };
 
 const CustomInput = ({ type, name, value, onChange, placeholder }) => {
-  const [selectedCountry] = useState(countryCodes[0].code); // Default country code
+  const [selectedCountry, setSelectedCountry] = useState(countryCodes[0].code); // Default country code
   const [verified, setVerified] = useState(false);
   const [otpVisible, setOtpVisible] = useState(false);
   const [otp, setOtp] = useState('');

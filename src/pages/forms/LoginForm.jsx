@@ -25,7 +25,7 @@ const LoginForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userData = await loginService(formData.username, formData.email, formData.password);
+      const userData = await loginService(formData.email, formData.password);
       dispatch(authLogin({ userData }));
       if (userData) {
         toast.success('user Loged in successful ')
@@ -39,20 +39,6 @@ const LoginForm = () => {
   return (
     <form onSubmit={onSubmit}>
       {error && <p className="text-red-500 mb-4">{error}</p>}
-      <div className="mb-4">
-        <label className="block mb-2 text-sm" htmlFor="username">Username:</label>
-        <input
-          id="username"
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-primary"
-          placeholder="Enter your username"
-          autoComplete="on"
-          required
-        />
-      </div>
 
       <div className="mb-4">
         <label className="block mb-2 text-sm" htmlFor="email">Email:</label>

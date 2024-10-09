@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CryptoCard from "../components/cryptoCard";
+import CryptoCard from "../components/CryptoCard";
 import fetchCryptoData from "./Market"; 
 
 const Home = () => {
