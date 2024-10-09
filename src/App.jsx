@@ -28,7 +28,7 @@ function App() {
   return !loading ?  (
     <>
     <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-white">
           <Toaster position="top-center" reverseOrder={false}/>
         <Outlet />
       </div>
