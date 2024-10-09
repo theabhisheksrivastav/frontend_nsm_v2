@@ -1,4 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { authService } from "../services/authService";
+import { login as loginAction, logout as logoutAction } from '../store/authSlice';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
@@ -71,6 +76,10 @@ const Navbar = () => {
   const mobileMenuRef = useRef(null); // Reference for the mobile menu
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [button, setButton] = useState('login');
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,6 +103,45 @@ const Navbar = () => {
       });
     }
   }, [isMobileMenuOpen]); // Runs the animation whenever isMobileMenuOpen changes
+
+  useEffect(() => {
+    authService.getCurrentUser()
+      .then((userData) => {
+        if (userData) {
+          dispatch(loginAction({ userData }));
+          setButton('logout');
+        } else {
+          dispatch(logoutAction());
+          setButton('login');
+        }
+      })
+      .catch(() => {
+        setButton('login');
+      });
+  }, [dispatch]);
+
+  const handleButtonClick = async () => {
+    if (button === 'logout') {
+      const currentUser = await authService.getCurrentUser();
+      if (!currentUser) {
+        toast.error("No user is currently logged in");
+        return;
+      }
+
+      try {
+        await authService.logout();
+        dispatch(logoutAction());
+        setButton('login');
+        toast.success('Logged out successfully');
+      } catch (error) {
+        console.error('Logout failed:', error);
+        toast.error('Logout failed: ' + error.message);
+      }
+    } else {
+      navigate('/login');
+    }
+  };
+
 
   const navLinks = [
     {
@@ -163,6 +211,14 @@ const Navbar = () => {
               )
             ))}
           </ul>
+
+          <button
+    onClick={handleButtonClick}
+    className="ml-0 px-4 py-2  text-white hover:text-blue-primary rounded-full"
+  >
+    {button}
+  </button>
+
         </div>
       </div>
     </nav>

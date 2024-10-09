@@ -102,8 +102,8 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      {/* Email Input */}
-      <label className="block mb-2 text-sm" htmlFor="password">Email:</label>
+      
+      <label className="block mb-2 text-sm" htmlFor="email">Email:</label>
       <CustomInput
         type="email"
         name="email"
@@ -112,17 +112,16 @@ const RegisterForm = () => {
         placeholder="Enter your email"
       />
 
-      {/* Phone Number Input */}
-      {/* <label className="block mb-2 text-sm" htmlFor="password">Phone Number:</label> */}
       <CustomInput
         type="number"
         name="phone"
         value={formData.phone}
         onChange={handleChange}
         placeholder="Enter your phone number"
-      />
+        />
+        
 
-      {/* Password Input */}
+   
       <div className="relative mb-4">
         <label className="block mb-2 text-sm" htmlFor="password">Password:</label>
         <input
@@ -157,7 +156,7 @@ const RegisterForm = () => {
         </ul>
       </div>
 
-      {/* Confirm Password Input */}
+      
       <div className="relative mb-4">
         <label className="block mb-2 text-sm" htmlFor="confirmPassword">Confirm Password:</label>
         <input
@@ -178,7 +177,6 @@ const RegisterForm = () => {
       {/* Error Message */}
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      {/* Submit Button */}
       <CustomButton type="submit" disabled={!isPasswordValid}>
         Register
       </CustomButton>
