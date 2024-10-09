@@ -11,7 +11,7 @@ const RegisterForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
-    phone: '',
+    mobile: '',
     password: '',
     confirmPassword: '',
   });
@@ -68,15 +68,27 @@ const RegisterForm = () => {
   };
 
   // Handle form submission
+  // const handleSubmit = async (formData) => {
+  //   const user = await register(formData.mobile, formData.name, formData.email, formData.password);
+  //   console.log(user);
+  //   if (user.success) {
+  //     toast.success('OTP sent successfully');
+  //     navigate('/otp-verify', { state: { ...formData } });
+  //   } else {
+  //     toast.error('User already exists');
+  //   }
+  // };
+
   const handleSubmit = async (formData) => {
-    const user = await register(formData.username, formData.name, formData.email, formData.password);
+    const user = await register(formData.fullname, formData.email, formData.mobile, formData.password);
     if (user.success) {
-      toast.success('OTP sent successfully');
-      navigate('/otp-verify', { state: { ...formData } });
+        toast.success('OTP sent successfully');
+        navigate('/otp-verify', { state: { ...formData } });
     } else {
-      toast.error('User already exists');
+        toast.error('User already exists');
     }
-  };
+};
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -90,7 +102,6 @@ const RegisterForm = () => {
       setError('Passwords do not match');
       return;
     }
-
     if (!isPasswordValid) {
       setError('Password does not meet the required criteria');
       return;
@@ -102,8 +113,18 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      {/* Email Input */}
-      <label className="block mb-2 text-sm" htmlFor="password">Email:</label>
+      
+      <label className="block mb-2 text-sm" htmlFor="fullname">Full Name:</label>
+      <CustomInput
+        type="text"
+        name="fullname"
+        value={formData.fullname}
+        onChange={handleChange}
+        placeholder="Enter your full name"
+        required
+      />
+
+      <label className="block mb-2 text-sm" htmlFor="email">Email:</label>
       <CustomInput
         type="email"
         name="email"
@@ -112,17 +133,17 @@ const RegisterForm = () => {
         placeholder="Enter your email"
       />
 
-      {/* Phone Number Input */}
-      {/* <label className="block mb-2 text-sm" htmlFor="password">Phone Number:</label> */}
+      <label className="block mb-2 text-sm" htmlFor="email">Mobile:</label> 
       <CustomInput
         type="number"
-        name="phone"
-        value={formData.phone}
+        name="mobile"
+        value={formData.mobile}
         onChange={handleChange}
         placeholder="Enter your phone number"
-      />
+        />
+        
 
-      {/* Password Input */}
+   
       <div className="relative mb-4">
         <label className="block mb-2 text-sm" htmlFor="password">Password:</label>
         <input
@@ -157,7 +178,7 @@ const RegisterForm = () => {
         </ul>
       </div>
 
-      {/* Confirm Password Input */}
+      
       <div className="relative mb-4">
         <label className="block mb-2 text-sm" htmlFor="confirmPassword">Confirm Password:</label>
         <input
@@ -178,7 +199,6 @@ const RegisterForm = () => {
       {/* Error Message */}
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      {/* Submit Button */}
       <CustomButton type="submit" disabled={!isPasswordValid}>
         Register
       </CustomButton>

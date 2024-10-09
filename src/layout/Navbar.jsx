@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { authService } from "../services/authService";
+import { login as loginAction, logout as logoutAction } from '../store/authSlice';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
 import { MdCancel } from "react-icons/md";
+import { marketService } from '../services/marketService'; // Import marketService
 
 const AccordionMenuItem = ({ item, closeMenu, isOpen, toggleOpen }) => {
   return (
@@ -71,6 +77,9 @@ const Navbar = () => {
   const mobileMenuRef = useRef(null); // Reference for the mobile menu
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [button, setButton] = useState('login');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -95,6 +104,54 @@ const Navbar = () => {
     }
   }, [isMobileMenuOpen]); // Runs the animation whenever isMobileMenuOpen changes
 
+  useEffect(() => {
+    authService.getCurrentUser()
+      .then((userData) => {
+        if (userData) {
+          dispatch(loginAction({ userData }));
+          setButton('logout');
+        } else {
+          dispatch(logoutAction());
+          setButton('login');
+        }
+      })
+      .catch(() => {
+        setButton('login');
+      });
+  }, [dispatch]);
+
+  const handleButtonClick = async () => {
+    if (button === 'logout') {
+      const currentUser = await authService.getCurrentUser();
+      if (!currentUser) {
+        toast.error("No user is currently logged in");
+        return;
+      }
+
+      try {
+        await authService.logout();
+        dispatch(logoutAction());
+        setButton('login');
+        toast.success('Logged out successfully');
+      } catch (error) {
+        console.error('Logout failed:', error);
+        toast.error('Logout failed: ' + error.message);
+      }
+    } else {
+      navigate('/login');
+    }
+  };
+
+  const handleRefreshClick = async () => {
+    try {
+      await marketService.refreshDatabase();
+      toast.success('Database refreshed successfully');
+    } catch (error) {
+      console.error('Failed to refresh database:', error);
+      toast.error('Failed to refresh database: ' + error.message);
+    }
+  };
+
   const navLinks = [
     {
       label: 'Service',
@@ -111,7 +168,7 @@ const Navbar = () => {
       ]
     },
     { label: 'Careers', link: '/careers' },
-    { label: 'OTC Desk', link: '/otcdesk' },
+    { label: 'Refresh', link: '#', onClick: handleRefreshClick }, // Updated to Refresh with click handler
   ];
 
   return (
@@ -151,23 +208,27 @@ const Navbar = () => {
             {navLinks.map((item, index) => (
               item.dropdown ? (
                 <li key={index} className="relative group hover:text-primary transition-colors font-semibold duration-200">
-                  <Link to={item.link}>{item.label}</Link>
+                  <Link to={item.link} onClick={item.onClick}>{item.label}</Link>
                   <div className="hidden group-hover:block absolute z-10">
                     <Dropdown items={item.dropdown} />
                   </div>
                 </li>
               ) : (
                 <li key={index}>
-                  <Link to={item.link} className="text-white">{item.label}</Link>
+                  <Link to={item.link} className="text-white" onClick={item.onClick}>{item.label}</Link>
                 </li>
               )
             ))}
           </ul>
+          <button onClick={handleButtonClick} className="px-4 py-3 text-md button text-center select-none cursor-pointer text-white bg-primaryCyan rounded-[100px] shadow-[0_4px_#118baa]">
+            {button}
+          </button>
         </div>
       </div>
     </nav>
   );
 };
+
 
 const Dropdown = ({ items }) => {
   return (

@@ -6,7 +6,6 @@ const countryCodes = [
   { code: '+91', name: 'India' },
   { code: '+44', name: 'UK' },
   { code: '+61', name: 'Australia' },
-  // Add more countries here as needed
 ];
 
 // Email validation function
@@ -17,11 +16,12 @@ const validateEmail = (email) => {
 };
 
 const CustomInput = ({ type, name, value, onChange, placeholder }) => {
-  const [selectedCountry] = useState(countryCodes[0].code); // Default country code
+  const [selectedCountry, setSelectedCountry] = useState(countryCodes[0].code); // Default country code
   const [verified, setVerified] = useState(false);
   const [otpVisible, setOtpVisible] = useState(false);
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
+  const [otpError, setOtpError] = useState(''); // State for OTP error message
   const [showVerifyButton, setShowVerifyButton] = useState(false);
 
   const otpInputRef = useRef(null);
@@ -58,13 +58,23 @@ const CustomInput = ({ type, name, value, onChange, placeholder }) => {
     }
   };
 
+  // Handle OTP input change and clear error on typing
+  const handleOtpChange = (e) => {
+    const inputOtp = e.target.value;
+    setOtp(inputOtp);
+
+    if (otpError && inputOtp.length === 6) {
+      setOtpError(''); // Clear error if the OTP length becomes valid
+    }
+  };
+
   // Handle OTP submission
   const handleOtpSubmit = () => {
-    if (otp.trim()) {
-      alert('OTP submitted successfully!');
-      setError('');
+    if (otp.length < 6) {
+      setOtpError('OTP must be 6 digits long'); // Show error if OTP is less than 6 digits
     } else {
-      setError('Please enter the OTP.');
+      alert('OTP submitted successfully!');
+      setOtpError('');
     }
   };
 
@@ -80,7 +90,7 @@ const CustomInput = ({ type, name, value, onChange, placeholder }) => {
   return (
     <div className="custom-input-container">
 
-        {type === 'number' && (
+      {type === 'number' && (
         <div className="country-selector mb-4">
           <select
             className="border rounded-lg p-2"
@@ -129,20 +139,23 @@ const CustomInput = ({ type, name, value, onChange, placeholder }) => {
             type="text"
             maxLength="6"
             value={otp}
-            onChange={(e) => setOtp(e.target.value)}
+            onChange={handleOtpChange}
             ref={otpInputRef}
-            className="w-full p-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter OTP"
             required
           />
           <button
             onClick={handleOtpSubmit}
-            className="ml-3 bg-blue-primary hover:bg-blue-600 text-white font-semibold py-0 px-3 rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="absolute right-2 top-2 bg-blue-primary hover:bg-blue-600 text-white font-semibold py-1 px-2 rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             Submit OTP
           </button>
         </div>
       )}
+
+      {/* OTP error message */}
+      {otpError && <p className="text-red-500 mb-4">{otpError}</p>}
     </div>
   );
 };
