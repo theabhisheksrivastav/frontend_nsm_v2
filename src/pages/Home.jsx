@@ -15,7 +15,7 @@ const Home = () => {
     }, []); // Empty dependency array to run this only once
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center justify-center h-full">
             <CryptoCard cryptoData={cryptoData} /> {/* Pass the fetched data to the CryptoCard component */}
         </div>
     );
